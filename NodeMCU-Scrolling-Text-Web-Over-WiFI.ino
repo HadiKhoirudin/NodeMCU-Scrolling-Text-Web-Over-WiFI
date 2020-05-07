@@ -33,7 +33,7 @@ ESP8266WebServer server(80); //Initialize the server on Port 80
 char WebResponse[] = "HTTP/1.1 200 OK\nContent-Type: text/html\n\n";
 // Website GUI
 char WebPage[] =
-"<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width'><title>Pengaturan</title> <style>body{margin: auto;}.button {background-color: #285fbb; border: none; color: white; padding: 10px 10px;text-align: center; text-decoration: none; display: inline-block; font-size: 30px; margin: auto; cursor: pointer; } .content{ max-width: 500px; margin: auto; background: white; padding: 10px; } </style> </head> <body><center> <div class='content'> <marquee>   <h4>Node MCU V3 ESP8226E Dot Matrix Wireless    </h4></marquee><br><center><form action='/tulis' method='POST'><input type='button' class='button' name='b1' value='&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/percepat&#39;'><br><br><input type='button' class='button' name='b2' value='&nbsp;<< &nbsp;' onclick='location.href=&#39;/kiri&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b3' value='OFF' onclick='location.href=&#39;/off&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b4' value='&nbsp; >>&nbsp;' onclick='location.href=&#39;/kanan&#39;'><br><br> <input type='button' class='button' name='b5' value='&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/perlambat&#39;'><br><br><br><center><textarea name='i1' placeholder='Silahkan isi pesan.' rows='4'></textarea></center><center><button type='submit'>kirim</button></center><br></form></div></center></body></html>";
+"<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width'><title>Pengaturan</title> <style>body{margin: auto;}.button {background-color: #285fbb; border: none; color: white; padding: 10px 10px;text-align: center; text-decoration: none; display: inline-block; font-size: 30px; margin: auto; cursor: pointer; } .content{ max-width: 500px; margin: auto; background: white; padding: 10px; } </style> </head> <body><center> <div class='content'> <marquee>   <h4>Node MCU V3 ESP8226E Dot Matrix Wireless    </h4></marquee><br><center><form action='/tulis' method='POST'><input type='button' class='button' name='b1' value='&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/percepat&#39;'><br><br><input type='button' class='button' name='b2' value='&nbsp;<< &nbsp;' onclick='location.href=&#39;/kiri&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b3' value='OFF' onclick='location.href=&#39;/off&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b4' value='&nbsp; >>&nbsp;' onclick='location.href=&#39;/kanan&#39;'><br><br> <input type='button' class='button' name='b5' value='&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/perlambat&#39;'><br><br><br><center><textarea name='textarea' placeholder='Silahkan isi pesan.' rows='4'></textarea></center><center><button type='submit'>kirim</button></center><br></form></div></center></body></html>";
 
 void scrollDataSink(uint8_t dev, MD_MAX72XX::transformType_t t, uint8_t col)
 // Callback function for data that is being scrolled off the display
@@ -187,7 +187,7 @@ void handleTulis(){
   direct = &dir;
   *direct = 'l';
 
- String str1 = server.arg("i1");
+ String str1 = server.arg("textarea");
  const char* tulisan = str1.c_str();
  
  Serial.print("Tulisannya :");
