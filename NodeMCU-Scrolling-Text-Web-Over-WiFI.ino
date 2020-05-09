@@ -8,7 +8,7 @@
 
 // Declaration HW Config
 #define HARDWARE_TYPE MD_MAX72XX::ICSTATION_HW
-#define MAX_DEVICES 4
+#define MAX_DEVICES 8
 
 #define CLK_PIN   D8 // or SCK
 #define CS_PIN    D7 // or SS
@@ -135,7 +135,7 @@ void setup() {
   mx.begin();
   mx.setShiftDataInCallback(scrollDataSource);
   mx.setShiftDataOutCallback(scrollDataSink);
-  strcpy(curMessage, "This is running text by Hadi Khoirudin, S.Kom.....          ");
+  strcpy(curMessage, "NodeMCUV3 please connect Wi-Fi and set messages on http://192.168.4.1 ...        ");
   newMessage[0] = '\0';
 }
 void loop(){
@@ -179,7 +179,6 @@ void handleOff(){
   direct = &dir;
   *direct = 'l';
   server.send(200,"text/html",WebPage);
-  strcpy(curMessage, " Please set-up messages...     ");
   WiFi.mode(WIFI_OFF);  
   }
 void handleTulis(){
