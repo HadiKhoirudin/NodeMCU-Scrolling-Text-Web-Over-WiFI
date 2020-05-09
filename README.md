@@ -10,7 +10,7 @@ Requirement
 
 
 How it's work?
-* This project will make NodeMCU work as Webserver over Wi-Fi SoftAP with IP Address 192.168.1.4 as gateway
+* This project will make NodeMCU work as Webserver over Wi-Fi SoftAP with IP Address 192.168.4.1 as gateway
 * Then you can change speed of running text or change text with them
 
 You need scan Wi-Fi and connect to SSID given from NodeMCU, then go to Gateway IP Address, & control them.
