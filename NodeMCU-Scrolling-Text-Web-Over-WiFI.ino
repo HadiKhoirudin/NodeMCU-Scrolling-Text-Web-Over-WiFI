@@ -8,7 +8,7 @@
 
 // Declaration HW Config
 #define HARDWARE_TYPE MD_MAX72XX::ICSTATION_HW
-#define MAX_DEVICES 8
+#define MAX_DEVICES 4
 
 #define CLK_PIN   D8 // or SCK
 #define CS_PIN    D7 // or SS
@@ -33,7 +33,7 @@ ESP8266WebServer server(80); //Initialize the server on Port 80
 char WebResponse[] = "HTTP/1.1 200 OK\nContent-Type: text/html\n\n";
 // Website GUI
 char WebPage[] =
-"<!DOCTYPE html><html lang='id'><head><meta name='viewport' content='width=device-width'><title>Pengaturan</title> <style>body{margin: auto;}.button {background-color: #285fbb; border: none; color: white; padding: 10px 10px;text-align: center; text-decoration: none; display: inline-block; font-size: 30px; margin: auto; cursor: pointer; } .content{ max-width: 500px; margin: auto; background: white; padding: 10px; } </style> </head> <body><center> <div class='content'> <marquee>   <h4>Node MCU V3 ESP8226E Dot Matrix Wireless    </h4></marquee><br><center><form action='/tulis' method='POST'><input type='button' class='button' name='b1' value='&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/percepat&#39;'><br><br><input type='button' class='button' name='b2' value='&nbsp;<< &nbsp;' onclick='location.href=&#39;/kiri&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b3' value='OFF' onclick='location.href=&#39;/off&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b4' value='&nbsp; >>&nbsp;' onclick='location.href=&#39;/kanan&#39;'><br><br> <input type='button' class='button' name='b5' value='&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/perlambat&#39;'><br><br><br><center><textarea name='textarea' placeholder='Silahkan isi pesan.' rows='4'></textarea></center><center><button type='submit'>kirim</button></center><br></form></div></center></body></html>";
+"<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width'><title>Pengaturan</title> <style>body{margin: auto;}.button {background-color: #285fbb; border: none; color: white; padding: 10px 10px;text-align: center; text-decoration: none; display: inline-block; font-size: 30px; margin: auto; cursor: pointer; } .content{ max-width: 500px; margin: auto; background: white; padding: 10px; } </style> </head> <body><center> <div class='content'> <marquee>   <h4>Node MCU V3 ESP8226E Dot Matrix Wireless    </h4></marquee><br><center><form action='/tulis' method='POST'><input type='button' class='button' name='b1' value='&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/percepat&#39;'><br><br><input type='button' class='button' name='b2' value='&nbsp;<< &nbsp;' onclick='location.href=&#39;/kiri&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b3' value='OFF' onclick='location.href=&#39;/off&#39;'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' class='button' name='b4' value='&nbsp; >>&nbsp;' onclick='location.href=&#39;/kanan&#39;'><br><br> <input type='button' class='button' name='b5' value='&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;' onclick='location.href=&#39;/perlambat&#39;'><br><br><br><center><textarea name='i1' placeholder='Silahkan isi pesan.' rows='4'></textarea></center><center><button type='submit'>kirim</button></center><br></form></div></center></body></html>";
 
 void scrollDataSink(uint8_t dev, MD_MAX72XX::transformType_t t, uint8_t col)
 // Callback function for data that is being scrolled off the display
@@ -120,7 +120,7 @@ uint8_t scrollDataSource(uint8_t dev, MD_MAX72XX::transformType_t t)
 void setup() {
 
   WiFi.mode(WIFI_AP); //Our ESP8266-12E is an AccessPoint 
-  WiFi.softAP("NodeMCUV3", ""); // Provide the (SSID, password) 
+  WiFi.softAP("NodeMCUV3", "123456789"); // Provide the (SSID, password) 
   //and password has to be longer than 8
   server.on("/", handleRoot);
   server.on("/percepat", handleAtas);
@@ -135,7 +135,7 @@ void setup() {
   mx.begin();
   mx.setShiftDataInCallback(scrollDataSource);
   mx.setShiftDataOutCallback(scrollDataSink);
-  strcpy(curMessage, "NodeMCUV3 please connect Wi-Fi and set messages on http://192.168.4.1 ...   ");
+  strcpy(curMessage, ".:Hadi Cell & Comp:.   Servis: HP & Komputer/Laptop   Isi Pulsa   Voucher   Token Listrik   Kartu: XL   Axis   3 Three     Telkomsel   Smartfren   Aksesoris dll...              ");
   newMessage[0] = '\0';
 }
 void loop(){
@@ -179,6 +179,7 @@ void handleOff(){
   direct = &dir;
   *direct = 'l';
   server.send(200,"text/html",WebPage);
+  strcpy(curMessage, " SMK Dharma Pertiwi Pasti Bisa!!!     ");
   WiFi.mode(WIFI_OFF);  
   }
 void handleTulis(){
@@ -186,11 +187,11 @@ void handleTulis(){
   direct = &dir;
   *direct = 'l';
 
- String str1 = server.arg("textarea");
- const char *tulisan = str1.c_str();
+ String str1 = server.arg("i1");
+ const char* tulisan = str1.c_str();
  
  Serial.print("Tulisannya :");
- Serial.println(tulisan);
+ Serial.println(str1);
  
  strcpy(curMessage, tulisan);
 
